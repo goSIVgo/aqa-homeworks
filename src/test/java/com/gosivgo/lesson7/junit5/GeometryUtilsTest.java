@@ -47,7 +47,7 @@ class GeometryUtilsTest {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             geometryUtils.triangleArea(1, 1, 3);
         });
-        assertEquals("Треугольник с такими сторонами не существует",
+        assertEquals("Треугольник с такими сторонами не существует!",
                 exception.getMessage());
     }
 

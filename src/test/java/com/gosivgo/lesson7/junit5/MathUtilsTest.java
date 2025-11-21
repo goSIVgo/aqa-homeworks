@@ -1,5 +1,6 @@
 package com.gosivgo.lesson7.junit5;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -8,11 +9,17 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 public class MathUtilsTest {
-    private MathUtils mathUtils = new MathUtils();
+
+    private MathUtils mathUtils;
+
+    @BeforeEach
+    void setUp() {
+        mathUtils = new MathUtils();
+    }
 
     @Test
     @DisplayName("Факториал: базовые случаи 0 и 1 должны возвращать 1")
-    void testFactorialBaseCases() {
+     void testFactorialBaseCases() {
         assertEquals(1, mathUtils.factorial(0), "Факториал 0 должен быть равен 1");
         assertEquals(1, mathUtils.factorial(1), "Факториал 1 должен быть равен 1");
     }
@@ -30,9 +37,8 @@ public class MathUtilsTest {
     @Test
     @DisplayName("Факториал: ошибка при отрицательном числе")
     void testFactorialNegativeNumberThrowsException() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            mathUtils.factorial(-2);
-        }, "Факториал отрицательного числа должен вызывать исключение");
+        Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                mathUtils.factorial(-2), "Факториал отрицательного числа должен вызывать исключение");
 
         assertEquals("Факториал определён только для неотрицательных чисел", exception.getMessage(),
                 "Сообщение об ошибке должно быть понятным!");
@@ -49,7 +55,7 @@ public class MathUtilsTest {
 
     @Test
     @DisplayName("Разность: корректная работа с разными числами")
-    void testDifferenceVariousNumbers() {
+     void testDifferenceVariousNumbers() {
         assertEquals(-4, mathUtils.diff(0, 4), "Ожидаемый результат: 0 - 4 = -4");
         assertEquals(0, mathUtils.diff(4, 4), "Ожидаемый результат: 4 - 4 = 0");
         assertEquals(-8, mathUtils.diff(-4, 4), "Ожидаемый результат: -4 - 4 = -8");
@@ -78,11 +84,10 @@ public class MathUtilsTest {
     @Test
     @DisplayName("Деление: ошибка при делении на ноль")
     void testDivideByZeroThrowsException() {
-        Exception exception = assertThrows(ArithmeticException.class, () -> {
-            mathUtils.div(5, 0);
-        }, "Деление на ноль должно вызывать исключение");
+        Exception exception = assertThrows(ArithmeticException.class, () ->
+                mathUtils.div(5, 0), "Деление на ноль должно вызывать исключение");
 
-        assertEquals("Деление на ноль невозможно",
+        assertEquals("Деление на ноль невозможно!",
                 exception.getMessage(),
                 "Сообщение об ошибке должно быть ясным");
     }
